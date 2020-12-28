@@ -1,26 +1,43 @@
+*{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    width: 45px;
+    height: 45px;
+    background-size: 45px 45px;
+}
+
 canvas {
     display: block;
     position: relative;
     margin: 0 auto;
     border: 1px solid black;
-    font-family: 'Open Sans', sans-serif
+    font-family: "Open Sans", sans-serif;
 }
 
 .pop-up {
     position: absolute;
-    top: 20px;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 30px;
     background-color: blueviolet;
     text-transform: uppercase;
     font-size: 30px;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
-    padding: 20px 40px ;
+    padding: 20px 40px;
     opacity: 0;
     transition: opacity, width 0.1s;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     width: 0;
 }
 .pop__button {
@@ -33,9 +50,49 @@ canvas {
     border-style: none;
     text-transform: uppercase;
     color: #fff;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 .pop-up__score {
     font-size: 16px;
     padding-top: 30px;
+}
+.start {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%) ;
+    width: 240px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: rgba(40, 140, 206, 0.75);
+}
+.start__img {
+    width: 180px;
+    display: block;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
+.start__title-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.start__title {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #ffffff;
+    margin-right: 5px;
+}
+.start__btn {
+    margin-left: 10px;
+    background-image: url('./img/start.png');
+    width: 45px;
+    height: 45px;
+    background-size: 45px 45px;
 }
