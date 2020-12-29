@@ -1,4 +1,6 @@
 *{
+    margin: 0;
+    padding: 0;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -14,13 +16,15 @@ button {
     height: 45px;
     background-size: 45px 45px;
 }
-
 canvas {
     display: block;
     position: relative;
     margin: 0 auto;
     border: 1px solid black;
     font-family: "Open Sans", sans-serif;
+}
+.wrapper {
+    position: relative;
 }
 
 .pop-up {
@@ -35,10 +39,9 @@ canvas {
     color: #ffffff;
     text-align: center;
     padding: 20px 40px;
-    opacity: 0;
     transition: opacity, width 0.1s;
     font-family: "Open Sans", sans-serif;
-    width: 0;
+    display: none;
 }
 .pop__button {
     margin-top: 50px;
@@ -52,7 +55,8 @@ canvas {
     color: #fff;
     font-family: "Open Sans", sans-serif;
 }
-.pop-up__score {
+
+.pop-up__score, .pop-up__high-score {
     font-size: 16px;
     padding-top: 30px;
 }
@@ -95,4 +99,26 @@ canvas {
     width: 45px;
     height: 45px;
     background-size: 45px 45px;
+}
+.start__btn:hover, .pop__button:hover{
+    transform: scale(1.1, 1.1);
+}
+.github {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.github__icon {
+    background-image: url("./img/github.png");
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-size: 35px 35px;
+}
+@media (max-width: 768px) {
+    .github {
+        bottom: 0;
+
+    }
 }

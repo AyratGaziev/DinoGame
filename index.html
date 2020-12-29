@@ -8,9 +8,10 @@
             href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
             rel="stylesheet"
         />
-        <title>MyGAME</title>
+        <title>DinoGame</title>
     </head>
     <body>
+    <div class = 'wrapper'>
         <canvas id="game" width="1024" height="560"></canvas>
         <div class="start">
             <img class="start__img" src="./img/dino.png" alt="tetris" />
@@ -22,8 +23,19 @@
         <div class="pop-up">
             <div class="pop-up__text">game over</div>
             <div class="pop-up__score"></div>
+            <div class="pop-up__high-score"></div>
             <button class="pop__button">Try again</button>
         </div>
+
+        <div class="github">
+            <a
+                    class="github__icon"
+                    href="https://github.com/AyratGaziev/DinoGame"
+            ></a>
+        </div>
+    </div>
+
+
         <script src="./script.js"></script>
     </body>
 </html>
