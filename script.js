@@ -5,12 +5,12 @@ class Dino {
         this.x = 50;
         this.y = canvas.height - groundHeight - this.height + 15;
         this.jump = false;
-        this.speed = 9;
         this.img = new Image();
         this.img.src = "./img/run.png";
         this.runCounter = 0;
         this.time = 0;
         this.jumpTop = false;
+        this.speed = 9;
     }
 
     drawDino(ctx, progress) {
@@ -32,27 +32,33 @@ class Dino {
         );
     }
     jumpDino(game) {
-        const {canvas, groundHeight, cactusCoords} = game;
+        const { canvas, groundHeight, cactusCoords } = game;
 
-        if(!this.jump) {
-            return
+        if (!this.jump) {
+            return;
         }
 
-        if(!this.jumpTop && this.y >= cactusCoords.y - this.height * 1.8) {
-            this.y -= this.speed;
-        } else if(this.y <= cactusCoords.y - this.height * 1.8) {
-            this.y += this.speed;
+        if (!this.jumpTop && this.y >= cactusCoords.y - this.height * 1.8) {
+            this.y -= Math.floor(this.speed * 1.5);
+        } else if (this.y <= cactusCoords.y - this.height * 1.8) {
+            this.y += Math.floor(this.speed * 0.8);
             this.jumpTop = true;
-        } else if(this.jumpTop && this.y < canvas.height - groundHeight - this.height + 15) {
-            this.y += this.speed;
-        } else if(this.jumpTop && this.y <= canvas.height - groundHeight - this.height + 15 ){
+        } else if (
+            this.jumpTop &&
+            this.y < canvas.height - groundHeight - this.height + 15
+        ) {
+            this.y += Math.floor(this.speed * 0.8);
+        } else if (
+            this.jumpTop &&
+            this.y <= canvas.height - groundHeight - this.height + 15
+        ) {
+            console.log("Work");
             this.y = canvas.height - groundHeight - this.height + 15;
             this.jump = false;
             this.jumpTop = false;
         }
     }
 }
-
 
 class Game {
     constructor(Dino) {
@@ -75,19 +81,19 @@ class Game {
         this.popUp = document.querySelector(".pop-up");
         this.tryBtn = document.querySelector(".pop__button");
         this.popUpScore = document.querySelector(".pop-up__score");
-        this.popUpHighScore = document.querySelector('.pop-up__high-score');
-        this.startBtn = document.querySelector('.start__btn')
-        this.startMenu = document.querySelector('.start')
+        this.popUpHighScore = document.querySelector(".pop-up__high-score");
+        this.startBtn = document.querySelector(".start__btn");
+        this.startMenu = document.querySelector(".start");
         this.skyImg = new Image();
-        this.skyImg.src = "./img/sky.png"
+        this.skyImg.src = "./img/sky.png";
         this.cloudsImg = new Image();
-        this.cloudsImg.src = './img/clouds.png'
+        this.cloudsImg.src = "./img/clouds.png";
         this.cloudsCoords = {
             x: 0,
             y: 0,
             w: this.canvas.width,
             h: this.canvas.height
-        }
+        };
         this.cloudsSpeed = 1;
     }
     drawGround() {
@@ -103,21 +109,17 @@ class Game {
         this.ctx.closePath();
     }
     drawSky() {
-        this.ctx.drawImage(
-            this.skyImg,
-            0,
-            0
-        );
+        this.ctx.drawImage(this.skyImg, 0, 0);
     }
     drawClouds(repeat) {
-        if(repeat) {
+        if (repeat) {
             this.ctx.drawImage(
                 this.cloudsImg,
                 this.cloudsCoords.x + this.cloudsCoords.w,
                 0,
                 this.cloudsCoords.w,
                 this.cloudsCoords.h
-            )
+            );
         } else {
             this.ctx.drawImage(
                 this.cloudsImg,
@@ -125,12 +127,11 @@ class Game {
                 0,
                 this.cloudsCoords.w,
                 this.cloudsCoords.h
-            )
+            );
         }
-
     }
     moveClouds() {
-        if(this.cloudsCoords.x + this.cloudsCoords.w <= 0) {
+        if (this.cloudsCoords.x + this.cloudsCoords.w <= 0) {
             this.cloudsCoords.x = 0;
         }
         this.cloudsCoords.x -= this.cloudsSpeed;
@@ -148,7 +149,7 @@ class Game {
         if (this.cactusCoords.x > 0) {
             this.cactusCoords.x -= this.cactusSpeed;
         } else {
-            if(updateScore) {
+            if (updateScore) {
                 this.score += 10;
             }
             this.cactusCoords.x = this.canvas.width;
@@ -165,7 +166,7 @@ class Game {
         this.ctx.fillText(`SCORE: ${this.score}`, 10, 20);
         this.ctx.fillText(`HIGH SCORE: ${this.highScore}`, 10, 40);
     }
-    dinoJumpKey(e) {
+    dinoJumpKey = (e) => {
         e.preventDefault();
         if (e.key === "ArrowUp" || e.type === "click") {
             if (
@@ -176,24 +177,23 @@ class Game {
             }
             this.dino.jump = true;
         }
-    }
+    };
     init() {
         this.drawSky();
         this.drawClouds();
         this.drawGround();
-        this.startBtn.addEventListener('click', (e) => {
+        this.startBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.runGame()
-        })
+            this.runGame();
+        });
     }
-    restart(e) {
+    restart = (e) => {
         if (e.target.parentNode.style.display === "none") {
             return;
-        };
+        }
 
-        this.tryBtn.removeEventListener("click", this.restart.bind(this));
-        this.canvas.removeEventListener("click", this.dinoJumpKey.bind(this));
-        document.removeEventListener("keydown", this.dinoJumpKey.bind(this));
+        this.canvas.removeEventListener("click", this.dinoJumpKey);
+        document.removeEventListener("keydown", this.dinoJumpKey);
 
         this.popUp.style.display = "none";
         this.dino = new Dino(this.canvas, this.groundHeight);
@@ -204,17 +204,16 @@ class Game {
             h: 67
         };
         this.score = 0;
-        this.highScore = localStorage.getItem('dinoHighScore');
+        this.highScore = localStorage.getItem("dinoHighScore");
         this.drawCactus();
         this.runGame();
-    }
+    };
     runGame() {
-        this.startMenu.style.display = 'none';
+        this.startMenu.style.display = "none";
 
-        this.tryBtn.addEventListener("click", this.restart.bind(this));
-        this.canvas.addEventListener("click", this.dinoJumpKey.bind(this));
-        document.addEventListener("keydown", this.dinoJumpKey.bind(this));
-
+        this.tryBtn.addEventListener("click", this.restart);
+        this.canvas.addEventListener("click", this.dinoJumpKey);
+        document.addEventListener("keydown", this.dinoJumpKey);
 
         this.startTime = performance.now();
 
@@ -234,14 +233,17 @@ class Game {
             this.dino.jumpDino(this);
 
             if (
-                this.dino.x <= this.cactusCoords.x + this.cactusCoords.w * 0.7 &&
-                this.dino.x + this.dino.width >= this.cactusCoords.x + this.cactusCoords.w * 0.3 &&
-                this.dino.y + this.dino.height >= this.cactusCoords.y + this.cactusCoords.h * 0.5
+                this.dino.x <=
+                    this.cactusCoords.x + this.cactusCoords.w * 0.7 &&
+                this.dino.x + this.dino.width >=
+                    this.cactusCoords.x + this.cactusCoords.w * 0.3 &&
+                this.dino.y + this.dino.height >=
+                    this.cactusCoords.y + this.cactusCoords.h * 0.5
             ) {
                 this.popUpScore.textContent = `Score: ${this.score}`;
                 this.popUpHighScore.textContent = `High score: ${this.highScore}`;
-                if(this.score > this.highScore) {
-                    localStorage.setItem('dinoHighScore', this.score)
+                if (this.score > this.highScore) {
+                    localStorage.setItem("dinoHighScore", this.score);
                 }
                 return (
                     (this.popUp.style.display = "block"),
@@ -264,5 +266,7 @@ class Game {
 }
 
 const game = new Game(Dino);
-window.onload = () => game.init()
-
+window.onload = () => {
+    window.onload = null;
+    game.init();
+};
