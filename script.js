@@ -52,7 +52,6 @@ class Dino {
             this.jumpTop &&
             this.y <= canvas.height - groundHeight - this.height + 15
         ) {
-            console.log("Work");
             this.y = canvas.height - groundHeight - this.height + 15;
             this.jump = false;
             this.jumpTop = false;
@@ -64,6 +63,8 @@ class Game {
     constructor(Dino) {
         this.canvas = document.getElementById("game");
         this.ctx = this.canvas.getContext("2d");
+        this.canvas.width = this.canvas.clientWidth;
+        this.canvas.height = this.canvas.clientHeight;
         this.groundHeight = 70;
         this.groundWidth = this.canvas.width;
         this.dino = new Dino(this.canvas, this.groundHeight);
@@ -95,6 +96,8 @@ class Game {
             h: this.canvas.height
         };
         this.cloudsSpeed = 1;
+
+        console.log(this.canvas.width);
     }
     drawGround() {
         this.ctx.beginPath();
